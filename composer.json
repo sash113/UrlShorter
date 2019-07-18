@@ -2,5 +2,21 @@
     "name": "sash113/urlshorter",
     "type": "project",
     "license": "MIT",
-    "require": {}
+    "require": {},
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "UrlShorter\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "UrlShorter\\Tests\\": "tests/"
+        }
+    },
 }

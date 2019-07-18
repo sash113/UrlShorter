@@ -1,23 +1,7 @@
 FROM php:7-fpm-alpine
 
+RUN apk add --no-cache --virtual .persistent-deps bash nano
 
-RUN apk add --no-cache --virtual .persistent-deps \
-    # for intl extension
-    icu-dev \
-    # for postgres
-    postgresql-dev \
-    # for soap
-    libxml2-dev \
-    # for GD
-    freetype \
-    libpng \
-    libjpeg-turbo \
-    # for bz2 extension
-    bzip2-dev \
-    # for intl extension
-    libintl gettext-dev libxslt \
-    # etc
-    bash nano
-
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 RUN curl https://getcomposer.org/installer > composer-setup.php && php composer-setup.php && mv composer.phar /usr/local/bin/composer && rm composer-setup.php
