@@ -13,6 +13,7 @@ namespace UrlShorter\Common\Controller;
 
 use UrlShorter\Common\Http\Request;
 use UrlShorter\Common\Http\Response;
+use UrlShorter\Common\I18n\I18n;
 
 abstract class AbstractController
 {
@@ -24,6 +25,6 @@ abstract class AbstractController
      */
     public function indexAction(Request $request): Response
     {
-        return new Response(self::MESSAGE_DEFAULT_INDEX);
+        return new Response(I18n::t(self::MESSAGE_DEFAULT_INDEX));
     }
 }
