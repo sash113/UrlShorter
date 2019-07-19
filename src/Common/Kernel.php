@@ -12,6 +12,7 @@ namespace UrlShorter\Common;
 
 use UrlShorter\Common\Http\Request;
 use UrlShorter\Common\Http\Response;
+use UrlShorter\Common\I18n\I18n;
 use UrlShorter\Common\Router\IRouter;
 use UrlShorter\Exception\NotFoundException;
 
@@ -20,27 +21,41 @@ class Kernel
     /** @var IRouter */
     protected $router;
 
+    /**
+     * Kernel constructor.
+     * @param IRouter $router
+     */
     public function __construct(IRouter $router)
     {
         $this->router = $router;
     }
 
+    /**
+     * @param Request $request
+     * @return Response
+     * @throws NotFoundException
+     */
     public function handle(Request $request): Response
     {
-        /** @var $routeTarget */
-        $routeTarget = $this->router->route($request);
-        if(!class_exists($routeTarget->class, true)) {var_dump($routeTarget->class);
-            throw new NotFoundException("Not found controller");
+        try {
+            /** @var $routeTarget */
+            $routeTarget = $this->router->route($request);
+
+            if(!class_exists($routeTarget->class, true)) {
+                throw new NotFoundException(I18n::t("Not found controller"));
+            }
+
+            $targetClass = new $routeTarget->class;
+
+            if(!method_exists($targetClass, $routeTarget->getMethod())) {
+                throw new NotFoundException(I18n::t("Not found method"));
+            }
+
+            /** @var Response $response */
+            $response = call_user_func([$targetClass, $routeTarget->getMethod()], $request);
+            return $response;
+        } catch (NotFoundException $exception) {
+            return new Response(I18n::t('Not Found'), Response::HTTP_NOT_FOUND);
         }
-
-        $targetClass = new $routeTarget->class;
-
-        if(!method_exists($targetClass, $routeTarget->getMethod())) {
-            throw new NotFoundException("Not found method");
-        }
-
-        /** @var Response $response */
-        $response = call_user_func([$targetClass, $routeTarget->getMethod()], $request);
-        return $response;
     }
 }
