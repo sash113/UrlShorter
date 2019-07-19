@@ -36,16 +36,24 @@ class Router implements IRouter
     public function route(Request $request): RouteTarget
     {
         /** @var array $pathParts */
-        $pathParts = explode('/', $request->getRequestUri());
+        $pathParts = explode('/', trim($request->getRequestUri(), '/'));
 
+        // Get controller name - penultimate part
         /** @var string $className */
         $className = sprintf("%s\\%sController",
             $this->namespace,
-            ucfirst(strtolower($pathParts[1]))
+            ucfirst(strtolower($pathParts[0]))
         );
-        /** @var string $className */
-        $methodName = sprintf("%sAction", ucfirst(strtolower($pathParts[2])));
 
+        // Get method name - last part
+        if (!empty($pathParts[1])) {
+            $methodName = ucfirst(strtolower($pathParts[1]));
+        } else {
+            $methodName = 'index';
+        }
+
+        /** @var string $methodName */
+        $methodName = sprintf("%sAction", $methodName);
         return new RouteTarget($className, $methodName);
     }
 }
