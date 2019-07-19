@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace UrlShorter\Common;
 
 use UrlShorter\Common\Http\Request;
+use UrlShorter\Common\Http\Response;
 use UrlShorter\Common\Router\IRouter;
 use UrlShorter\Exception\NotFoundException;
 
@@ -24,11 +25,10 @@ class Kernel
         $this->router = $router;
     }
 
-    public function handle(Request $request): string
+    public function handle(Request $request): Response
     {
         /** @var $routeTarget */
         $routeTarget = $this->router->route($request);
-
         if(!class_exists($routeTarget->class, true)) {var_dump($routeTarget->class);
             throw new NotFoundException("Not found controller");
         }
@@ -39,8 +39,8 @@ class Kernel
             throw new NotFoundException("Not found method");
         }
 
-        $result = call_user_func([$targetClass, $routeTarget->getMethod()], $request);
-
-        return $result;
+        /** @var Response $response */
+        $response = call_user_func([$targetClass, $routeTarget->getMethod()], $request);
+        return $response;
     }
 }
