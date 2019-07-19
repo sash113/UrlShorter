@@ -12,6 +12,10 @@ namespace UrlShorter\Common\Router;
 
 use UrlShorter\Common\Http\Request;
 
+/**
+ * Interface IRouter
+ * @package UrlShorter\Common\Router
+ */
 interface IRouter
 {
     /**

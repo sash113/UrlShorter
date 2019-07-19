@@ -16,6 +16,10 @@ use UrlShorter\Common\I18n\I18n;
 use UrlShorter\Common\Router\IRouter;
 use UrlShorter\Exception\NotFoundException;
 
+/**
+ * Class Kernel
+ * @package UrlShorter\Common
+ */
 class Kernel
 {
     /** @var IRouter */

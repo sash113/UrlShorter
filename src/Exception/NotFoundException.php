@@ -8,7 +8,10 @@
 
 namespace UrlShorter\Exception;
 
-
+/**
+ * Class NotFoundException
+ * @package UrlShorter\Exception
+ */
 class NotFoundException extends BaseException
 {
 

@@ -9,6 +9,11 @@ namespace UrlShorter\Entity;
  * Date: 18.07.19
  * Time: 1:38
  */
+
+/**
+ * Class Url
+ * @package UrlShorter\Entity
+ */
 class Url
 {
 

@@ -10,6 +10,10 @@ declare(strict_types=1);
 
 namespace UrlShorter\Common\Http;
 
+/**
+ * Class Request
+ * @package UrlShorter\Common\Http
+ */
 class Request
 {
     const METHOD_HEAD = 'HEAD';

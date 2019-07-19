@@ -12,6 +12,11 @@ use UrlShorter\Common\Http\Response;
  * Date: 09.07.19
  * Time: 3:04
  */
+
+/**
+ * Class NewUrlController
+ * @package UrlShorter\Controller
+ */
 class NewUrlController extends AbstractController
 {
     public function indexAction(Request $request): Response

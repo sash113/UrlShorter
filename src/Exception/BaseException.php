@@ -8,6 +8,11 @@ namespace UrlShorter\Exception;
  * Date: 19.07.19
  * Time: 2:45
  */
+
+/**
+ * Class BaseException
+ * @package UrlShorter\Exception
+ */
 class BaseException extends \Exception
 {
 

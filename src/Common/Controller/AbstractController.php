@@ -15,6 +15,10 @@ use UrlShorter\Common\Http\Request;
 use UrlShorter\Common\Http\Response;
 use UrlShorter\Common\I18n\I18n;
 
+/**
+ * Class AbstractController
+ * @package UrlShorter\Common\Controller
+ */
 abstract class AbstractController
 {
     const MESSAGE_DEFAULT_INDEX = 'default page';
