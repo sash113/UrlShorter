@@ -35,6 +35,7 @@ class Router implements IRouter
      */
     public function route(Request $request): RouteTarget
     {
+        /** @var string $uriPath */
         $uriPath = parse_url($request->getRequestUri(), PHP_URL_PATH);
         /** @var array $pathParts */
         $pathParts = explode('/', trim($uriPath, '/'));
