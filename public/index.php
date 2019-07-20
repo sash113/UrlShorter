@@ -8,6 +8,7 @@ use \UrlShorter\Common\Router\Router;
 use \UrlShorter\Common\Http\Request;
 
 require __DIR__.'/../vendor/autoload.php';
+require __DIR__.'/../config/main.php';
 
 const CONTROLLER_NAMESPACE = __NAMESPACE__ . '\\Controller';
 
