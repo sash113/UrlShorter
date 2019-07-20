@@ -15,6 +15,8 @@ use UrlShorter\Common\Storage\IEntityHydrator;
 use UrlShorter\Repository\UrlRepository;
 use UrlShorter\Service\HashService;
 use UrlShorter\Service\UrlService;
+use UrlShorter\Common\Template\ITemplateEngine;
+use UrlShorter\Common\Template\TemplateEngine;
 
 Container::getInstance()->register(\PDO::class,
     new \PDO(
@@ -29,3 +31,6 @@ Container::getInstance()->register(IEntityHydrator::class, new EntityHydrator())
 Container::getInstance()->register(HashService::class, new HashService());
 Container::getInstance()->register(UrlRepository::class, new UrlRepository());
 Container::getInstance()->register(UrlService::class, new UrlService());
+Container::getInstance()->register(ITemplateEngine::class,
+    new TemplateEngine(__DIR__ . '/../templates/')
+);

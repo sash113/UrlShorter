@@ -11,9 +11,12 @@ declare(strict_types=1);
 namespace UrlShorter\Common\Controller;
 
 
+use UrlShorter\Common\DI\Container;
 use UrlShorter\Common\Http\Request;
 use UrlShorter\Common\Http\Response;
 use UrlShorter\Common\I18n\I18n;
+use UrlShorter\Common\Template\ITemplateEngine;
+use UrlShorter\Common\Template\TemplateEngine;
 
 /**
  * Class AbstractController
@@ -22,6 +25,14 @@ use UrlShorter\Common\I18n\I18n;
 abstract class AbstractController
 {
     const MESSAGE_DEFAULT_INDEX = 'default page';
+    
+    /** @var TemplateEngine */
+    protected $template;
+    
+    public function __construct()
+    {
+        $this->template = Container::getInstance()->getService(ITemplateEngine::class);
+    }
 
     /**
      * @param Request $request
