@@ -14,4 +14,4 @@ make up
 ```
 
 
-Now open http://localhost:8080
+Now open http://localhost:8080/url
