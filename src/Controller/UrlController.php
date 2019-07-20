@@ -42,11 +42,27 @@ class UrlController extends AbstractController
 
     public function newAction(Request $request): Response
     {
-        return new Response($this->service->putUrl('http://google.com'));
+        /** @var string $url */
+        $url = $request->getPost()['url'];
+        if (filter_var($url, FILTER_VALIDATE_URL) === FALSE) {
+            return new Response('Url is not valid');
+        }
+        return new Response($this->service->putUrl($url));
     }
 
     public function redirectAction(Request $request): Response
     {
+        /** @var string $url */
+        $id = $request->getQuery()['id'];
+        if (empty($id)) {
+            return new Response('', Response::HTTP_NOT_FOUND);
+        }
+        $redirectUrl = $this->service->fetchUrl($id);
+        if ($redirectUrl === null) {
+            return new Response('Url not found', Response::HTTP_NOT_FOUND);
+        }
 
+        return new Response(
+            'Redirect', Response::HTTP_FOUND, ['Location' => $redirectUrl]);
     }
 }

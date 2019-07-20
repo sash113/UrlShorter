@@ -24,8 +24,22 @@ class UrlRepository extends AbstractRepository
         $statement->execute($this->hydrator->hydrate($entity));
     }
 
-    public function fetchUrl(): Url
+    /**
+     * @param string $id
+     * @return string|null
+     */
+    public function fetchUrl(string $id): ?string
     {
-        
+        /** @var \PDOStatement $statement */
+        $statement = $this->pdo->prepare('SELECT url FROM url WHERE id = ?');
+        $res = $statement->execute([$id]);
+        if ($res === null) {
+            return null;
+        }
+        $res = $statement->fetch(\PDO::FETCH_ASSOC);
+        if ($res === null) {
+            return null;
+        }
+        return $res['url'];
     }
 }

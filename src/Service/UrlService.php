@@ -46,10 +46,11 @@ class UrlService
     }
 
     /**
-     * @return IEntity
+     * @param string $id
+     * @return string|null
      */
-    public function fetchUrl(): IEntity
+    public function fetchUrl(string $id): ?string
     {
-
+        return $this->urlRepository->fetchUrl($id);
     }
 }
